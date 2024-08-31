@@ -7,6 +7,7 @@ apps:
   - bat
   - fzf
   - git
+  - gpg
   - go
   - sqlite
   - node
@@ -45,4 +46,18 @@ homebrew_cask_apps: "{{ gui_apps + brew_cask_apps }}"
 homebrew_cask_accept_external_apps: true
 homebrew_upgrade_all_packages: true
 
+mas_upgrade_all_apps: false
 mas_installed_apps:
+  - {id: 1444383602, name: "Goodnotes"}
+  - {id: 1544743900, name: "Hush"}
+  - {id: 1342896380, name: "Hex Fiend"}
+  - {id: 425424353, name: "Unarchiver"}
+  - {id: 1640113540, name: "Clone in VS Code"}
+  - {id: 497799835, name: "Xcode"}
+  - {id: 1352778147, name: "Bitwarden"}
+  - {id: 1475387142, name: "Tailscale"}
+  - {id: 1542271266, name: "Silicon Info"}
+  - {id: 1024640650, name: "CotEditor"}
+  - {id: 1607635845, name: "Velja"}
+  - {id: 1440147259, name: "AdGuard for Safari"}
+  - {id: 1452453066, name: "Hidden Bar"}

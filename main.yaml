@@ -18,6 +18,10 @@
         - name: Install homebrew apps
           include_role:
             name: geerlingguy.mac.homebrew
+
+        - name: Install App Store Apps
+          include_role:
+            name: geerlingguy.mac.mas
       when: is_mac
 
     - name: Linux Install
