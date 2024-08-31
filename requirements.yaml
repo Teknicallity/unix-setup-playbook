@@ -1,0 +1,5 @@
+---
+roles:
+  - name: community.general
+
+  - name: geerlingguy.mac

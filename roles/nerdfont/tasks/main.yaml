@@ -1,0 +1,22 @@
+---
+- name: Set Linux fonts directory
+  set_fact:
+    fonts_dir: "{{ ansible_env.HOME }}/.local/share/fonts"
+  when: is_linux
+
+- name: Set MacOS fonts directory
+  set_fact:
+    fonts_dir: "/Library/Fonts"
+  when: is_mac
+
+- name: ensure fonts directory
+  file:
+    path: "{{ fonts_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Install fonts
+  include_tasks: "install.yaml"
+  loop: "{{ nerdfont_urls }}"
+  loop_control:
+    loop_var: nerdfont_url

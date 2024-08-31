@@ -1,0 +1,45 @@
+---
+- name: Install Custom Shell Configuration
+  block:
+    - name: Install Oh My Posh on Linux
+      shell: curl -s https://ohmyposh.dev/install.sh | bash -s
+      when: is_linux
+
+    - name: Remove Leftover OMP Files
+      block:
+        - name: Find omp.cache files
+          find:
+            paths: "{{ ansible_env.HOME }}"
+            patterns: omp.cache*
+          register: omp_files
+
+        - name: Clear omp.cache files
+          file:
+            path: "{{ item.path }}"
+            state: absent
+          loop: "{{ omp_files.files }}"
+
+        - name: Remove the themes directory
+          file:
+            path: "{{ ansible_env.HOME }}/themes"
+            state: absent
+
+    - name: Save User Home Dir
+      set_fact:
+        home: "{{ ansible_env.HOME }}"
+    - name: Clone dotfiles repository as bare repository
+      git:
+        repo: "{{ dotfiles_repo }}"
+        dest: "{{ home }}/.dotfiles-git"
+        bare: yes
+        update: no
+
+    - name: Configure dotfiles to not show untracked files
+      shell: git --git-dir=$HOME/.dotfiles-git/ --work-tree=$HOME config --local status.showUntrackedFiles no
+
+    - name: Check out dotfiles
+      shell: git --git-dir=$HOME/.dotfiles-git/ --work-tree=$HOME checkout
+
+    - name: Change user's shell
+      shell: "chsh -s $(which zsh)"
+      ignore_errors: true

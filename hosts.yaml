@@ -1,0 +1,10 @@
+ansible:
+  hosts:
+    172.26.240.1:
+
+  vars:
+    ansible_user: vagrant
+    ansible_password: vagrant
+    ansible_port: 2222
+    UserKnownHostsFile: /dev/null
+    StrictHostKeyChecking: no

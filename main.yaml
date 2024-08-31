@@ -1,0 +1,37 @@
+---
+- name: Computer Setup
+  hosts: all
+
+  vars_files:
+    - config.yaml
+  vars:
+    dotfiles_repo: https://github.com/Teknicallity/unix-dotfiles.git
+
+  tasks:
+    - name: Set distribution flags
+      set_fact:
+        is_linux: ansible_system == 'Linux'
+        is_mac: ansible_distribution == 'MacOSX'
+
+    - name: Macos Install
+      block:
+        - name: Install homebrew apps
+          include_role:
+            name: geerlingguy.mac.homebrew
+      when: is_mac
+
+    - name: Linux Install
+      block:
+        - name: Install Packages
+          package:
+            name: "{{ linux_apps }}"
+          become: true
+      when: is_linux
+
+    - name: General Install
+      block:
+        - include_role:
+            name: zsh
+        - include_role:
+            name: nerdfont
+

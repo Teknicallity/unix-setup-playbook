@@ -1,0 +1,10 @@
+argument_specs:
+  # roles/zsh/tasks/main.yml entry point
+  main:
+    short_description: Install an oh-my-posh based zfs configuration
+    options:
+      dotfiles_repo:
+        type: "str"
+        required: true
+        description:
+          - "The git repository where your dotfiles are kept. Mirrors the layout of dotfiles in your home directory."

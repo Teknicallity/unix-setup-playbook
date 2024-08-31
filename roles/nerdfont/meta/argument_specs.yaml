@@ -1,0 +1,12 @@
+argument_specs:
+  # roles/nerdfont/tasks/main.yml entry point
+  main:
+    short_description: Url to wanted nerd fonts
+    options:
+      nerdfont_urls:
+        type: "list"
+        elements: str
+        required: true
+        description:
+          - "The list of urls for wanted nerd fonts. Only works with fonts from https://github.com/ryanoasis/nerd-fonts/"
+          - "Fonts can be previewed at https://www.nerdfonts.com/font-downloads"

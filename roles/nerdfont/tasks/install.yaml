@@ -1,0 +1,33 @@
+---
+- name: Save font name
+  set_fact:
+    font_title: "{{ (nerdfont_url | urlsplit).path | basename | splitext | first }}NerdFont"
+
+- name: Search for matching font files
+  find:
+    paths: "{{ fonts_dir }}"
+    patterns: "{{ font_title }}*"
+    file_type: directory
+    recurse: no
+  register: font_search
+
+- name: Install font
+  block:
+    - name: Create font directory
+      file:
+        path: "{{ fonts_dir }}/{{ font_title }}/"
+        state: directory
+        mode: '0755'
+
+    - name: Extract font
+      unarchive:
+        src: "{{ nerdfont_url }}"
+        dest: "{{ fonts_dir }}/{{ font_title }}/"
+        remote_src: yes
+
+  rescue:
+    - name: Delete font directory
+      file:
+        path: "{{ fonts_dir }}/{{ font_title }}/"
+        state: absent
+  when: font_search.matched == 0
