@@ -38,6 +38,8 @@ brew_only_apps:
 homebrew_cask_appdir: /Applications
 brew_cask_apps:
   - microsoft-edge
+  - jetbrains-toolbox
+  - visual-studio-code
 
 linux_apps: "{{ linux_only_apps }}"
 
