@@ -41,6 +41,8 @@ brew_cask_apps:
   - jetbrains-toolbox
   - visual-studio-code
 
+homebrew_taps: []
+
 linux_apps: "{{ linux_only_apps }}"
 
 homebrew_installed_packages: "{{ apps + brew_only_apps }}"
