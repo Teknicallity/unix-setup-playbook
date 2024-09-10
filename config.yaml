@@ -15,6 +15,7 @@ apps:
   - openssl
   - wget
   - zsh
+  - zoxide
 
 gui_apps:
   - docker
