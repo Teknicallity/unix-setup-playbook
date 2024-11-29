@@ -41,6 +41,7 @@ brew_cask_apps:
   - microsoft-edge
   - jetbrains-toolbox
   - visual-studio-code
+  - docker
 
 homebrew_taps: []
 
