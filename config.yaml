@@ -35,6 +35,7 @@ brew_only_apps:
   - nano
   - oh-my-posh
   - openjdk
+  - mas
 
 homebrew_cask_appdir: /Applications
 brew_cask_apps:
