@@ -2,13 +2,20 @@
 # Unix Setup Playbook
 
 ## Installation
+
 ### Mac
+
 - Go through initial mac setup
 - Run `bash pre-setup-mac.sh`
 - Run `ansible-playbook -i localhost, main.yaml`
 
 ### Linux
 
+## App Drift Detection
+
+### Mac Brew Audit
+
+Run `brew-check-drift.sh` to get a list of Mac Apps on the system which are not in the list.
 
 ## To Add
 
