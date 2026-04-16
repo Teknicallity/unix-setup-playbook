@@ -42,4 +42,5 @@
 
     - name: Change user's shell
       shell: "chsh -s $(which zsh)"
-      ignore_errors: true
+      register: chsh_result
+      failed_when: chsh_result.rc != 0 and 'already' not in chsh_result.stderr
