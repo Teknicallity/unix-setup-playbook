@@ -11,9 +11,11 @@ apps:
   - gpg
   - go
   - sqlite
+  - netscanner
   - node
-  - ssh-copy-id
   - openssl
+  - powershell
+  - ssh-copy-id
   - wget
   - zsh
   - zoxide
@@ -50,6 +52,12 @@ brew_cask_apps:
   - dockdoor
   - 1password
   - linearmouse
+#  - microsoft-office
+#  - microsoft-teams
+#  - teamviewer
+#  - zoom
+#  - logitech-g-hub
+#  - claude
 
 homebrew_taps: []
 
@@ -76,3 +84,4 @@ mas_installed_apps:
   - {id: 1440147259, name: "AdGuard for Safari"}
 #  - {id: 1355679052, name: "Dropover"} # one time in app purchase
   - {id: 1436994560, name: "Portal"}
+#  - {id: 1274495053, name: "Microsoft To Do"}
