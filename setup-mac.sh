@@ -22,4 +22,4 @@ export PATH="$PATH:$HOME/.local/bin"
 ansible-galaxy collection install -r requirements.yaml
 
 # Run the playbook
-ansible-playbook -i localhost, main.yaml
+ansible-playbook -i localhost, --connection=local main.yaml
