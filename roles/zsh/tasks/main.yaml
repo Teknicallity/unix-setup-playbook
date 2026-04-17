@@ -32,13 +32,15 @@
         repo: "{{ dotfiles_repo }}"
         dest: "{{ home }}/.dotfiles-git"
         bare: yes
-        update: no
 
     - name: Configure dotfiles to not show untracked files
       shell: git --git-dir=$HOME/.dotfiles-git/ --work-tree=$HOME config --local status.showUntrackedFiles no
+      changed_when: false
 
     - name: Check out dotfiles
-      shell: git --git-dir=$HOME/.dotfiles-git/ --work-tree=$HOME checkout
+      shell: git --git-dir=$HOME/.dotfiles-git/ --work-tree=$HOME checkout --force
+      register: checkout_result
+      changed_when: checkout_result.stdout != ""
 
     - name: Change user's shell
       shell: "chsh -s $(which zsh)"
