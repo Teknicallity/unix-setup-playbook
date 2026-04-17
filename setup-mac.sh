@@ -15,3 +15,11 @@ fi
 # Install ansible via pipx (isolated environment)
 brew install pipx
 pipx install --include-deps ansible
+pipx ensurepath
+export PATH="$PATH:$HOME/.local/bin"
+
+# Install required Ansible collections
+ansible-galaxy collection install -r requirements.yaml
+
+# Run the playbook
+ansible-playbook -i localhost, main.yaml
