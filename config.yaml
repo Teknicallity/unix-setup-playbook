@@ -74,5 +74,5 @@ mas_installed_apps:
   - {id: 1024640650, name: "CotEditor"}
   - {id: 1607635845, name: "Velja"}
   - {id: 1440147259, name: "AdGuard for Safari"}
-  - {id: 1355679052, name: "Dropover"}
+#  - {id: 1355679052, name: "Dropover"} # one time in app purchase
   - {id: 1436994560, name: "Portal"}
