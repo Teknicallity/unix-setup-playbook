@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+read -rs -p "Enter your Mac password for sudo: " SUDO_PASS
+echo
 
 xcode-select --install
 
@@ -22,4 +24,6 @@ export PATH="$PATH:$HOME/.local/bin"
 ansible-galaxy collection install -r requirements.yaml
 
 # Run the playbook
-ansible-playbook -i localhost, --connection=local --ask-become-pass main.yaml
+export SUDO_PASS
+
+ansible-playbook -i hosts.yaml main.yaml
