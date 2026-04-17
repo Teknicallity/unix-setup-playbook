@@ -49,6 +49,7 @@ brew_cask_apps:
   - flux-markdown
   - dockdoor
   - 1password
+  - linearmouse
 
 homebrew_taps: []
 
