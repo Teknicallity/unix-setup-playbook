@@ -9,9 +9,17 @@ until xcode-select -p &>/dev/null; do
   sleep 5
 done
 
-# Install Homebrew if not present
+# Install Homebrew if not present - must NOT be run with sudo
 if ! command -v brew &>/dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+# Apple Silicon: ensure /opt/homebrew is owned by the user
+if [[ $(uname -m) == "arm64" ]]; then
+  if [[ $(stat -f "%Su" /opt/homebrew) != "$(whoami)" ]]; then
+    echo "Fixing /opt/homebrew ownership..."
+    sudo chown -R "$(whoami)" /opt/homebrew
+  fi
 fi
 
 # Install ansible via pipx (isolated environment)
