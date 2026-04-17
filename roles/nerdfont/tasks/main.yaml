@@ -6,7 +6,7 @@
 
 - name: Set MacOS fonts directory
   set_fact:
-    fonts_dir: "/Library/Fonts"
+    fonts_dir: "{{ ansible_env.HOME }}/Library/Fonts"
   when: is_mac
 
 - name: ensure fonts directory
