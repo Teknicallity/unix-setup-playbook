@@ -7,6 +7,17 @@
   vars:
     dotfiles_repo: https://github.com/Teknicallity/unix-dotfiles.git
 
+  pre_tasks:
+    - name: Ensure /opt/homebrew is owned by the current user (Apple Silicon)
+      file:
+        path: /opt/homebrew
+        owner: "{{ ansible_user_id }}"
+        recurse: true
+      become: true
+      when:
+        - ansible_system == 'Darwin'
+        - ansible_machine == 'arm64'
+
   tasks:
     - name: Set distribution flags
       set_fact:
@@ -38,4 +49,3 @@
             name: zsh
         - include_role:
             name: nerdfont
-
