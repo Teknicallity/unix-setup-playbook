@@ -48,10 +48,11 @@ brew_cask_apps:
   - jetbrains-toolbox
   - visual-studio-code
   - docker
-  - flux-markdown
+  - xykong/tap/flux-markdown
   - dockdoor
   - 1password
   - linearmouse
+  - iterm2
 #  - microsoft-office
 #  - microsoft-teams
 #  - teamviewer
