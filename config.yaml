@@ -74,6 +74,90 @@ dock_autohide_delay: 0.05
 menu_bar_item_spacing: 8
 menu_bar_item_selection_padding: 4
 
+dockutil_install: true
+
+dockitems_remove:
+  - Launchpad
+  - Mail
+  - Maps
+  - FaceTime
+  - Phone
+  - Contacts
+  - Reminders
+  - TV
+  - Music
+  - Games
+  - 'App Store'
+
+dockitems_persist:
+  - name: Finder
+    path: "/System/Library/CoreServices/Finder.app/"
+    pos: 1
+  - name: System Settings
+    path: "/System/Applications/System Settings.app/"
+    pos: 2
+  - name: Calendar
+    path: "/System/Applications/Calendar.app/"
+    pos: 3
+  - name: Messages
+    path: "/System/Applications/Messages.app/"
+    pos: 4
+  - name: Microsoft Teams
+    path: "/Applications/Microsoft Teams.app/"
+    pos: 5
+  - name: Microsoft Edge
+    path: "/Applications/Microsoft Edge.app/"
+    pos: 6
+  - name: Firefox
+    path: "/Applications/Firefox.app/"
+    pos: 7
+  - name: Safari
+    path: "/Applications/Safari.app/"
+    pos: 8
+  - name: Discord
+    path: "/Applications/Discord.app/"
+    pos: 9
+  - name: Spotify
+    path: "/Applications/Spotify.app/"
+    pos: 10
+  - name: Notion
+    path: "/Applications/Notion.app/"
+    pos: 11
+  - name: Obsidian
+    path: "/Applications/Obsidian.app/"
+    pos: 12
+  - name: Notes
+    path: "/System/Applications/Notes.app/"
+    pos: 13
+  - name: Microsoft OneNote
+    path: "/Applications/Microsoft OneNote.app/"
+    pos: 14
+  - name: Microsoft Word
+    path: "/Applications/Microsoft Word.app/"
+    pos: 15
+  - name: Microsoft Excel
+    path: "/Applications/Microsoft Excel.app/"
+    pos: 16
+  - name: Microsoft To Do
+    path: "/Applications/Microsoft To Do.app/"
+    pos: 17
+  # JetBrains Toolbox installs to ~/Applications by default — adjust edition name if needed
+  - name: PyCharm
+    path: "{{ ansible_facts['env']['HOME'] }}/Applications/PyCharm Professional Edition.app/"
+    pos: 18
+  - name: IntelliJ IDEA
+    path: "{{ ansible_facts['env']['HOME'] }}/Applications/IntelliJ IDEA Ultimate.app/"
+    pos: 19
+  - name: Visual Studio Code
+    path: "/Applications/Visual Studio Code.app/"
+    pos: 20
+  - name: iTerm2
+    path: "/Applications/iTerm.app/"
+    pos: 20
+  - name: iPhone Mirroring
+    path: "/System/Applications/iPhone Mirroring.app/"
+    pos: 21
+
 mas_upgrade_all_apps: false
 mas_installed_apps:
   - {id: 1444383602, name: "Goodnotes"}

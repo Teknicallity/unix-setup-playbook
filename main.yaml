@@ -23,6 +23,26 @@
           include_role:
             name: geerlingguy.mac.mas
 
+        - name: Check which dock app paths exist
+          ansible.builtin.stat:
+            path: "{{ item.path }}"
+          loop: "{{ dockitems_persist }}"
+          loop_control:
+            label: "{{ item.name }}"
+          register: dock_app_stat_results
+
+        - name: Filter dock items to installed apps only
+          ansible.builtin.set_fact:
+            dockitems_persist: >-
+              {{ (dockitems_persist | zip(dock_app_stat_results.results))
+                 | selectattr('1.stat.exists')
+                 | map(attribute='0')
+                 | list }}
+
+        - name: Configure Dock
+          include_role:
+            name: geerlingguy.mac.dock
+
         - name: Apply macOS defaults
           include_role:
             name: mac_defaults
