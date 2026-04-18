@@ -42,7 +42,13 @@
       register: checkout_result
       changed_when: checkout_result.stdout != ""
 
-    - name: Change user's shell
-      shell: "chsh -s $(which zsh)"
-      register: chsh_result
-      failed_when: chsh_result.rc != 0 and 'already' not in chsh_result.stderr
+    - name: Find zsh path
+      command: which zsh
+      register: zsh_path
+      changed_when: false
+
+    - name: Change user's shell to zsh
+      become: true
+      user:
+        name: "{{ ansible_user_id }}"
+        shell: "{{ zsh_path.stdout }}"
