@@ -10,8 +10,8 @@
   tasks:
     - name: Set distribution flags
       set_fact:
-        is_linux: "{{ ansible_system == 'Linux' }}"
-        is_mac: "{{ ansible_distribution == 'MacOSX' }}"
+        is_linux: "{{ ansible_facts['system'] == 'Linux' }}"
+        is_mac: "{{ ansible_facts['distribution'] == 'MacOSX' }}"
 
     - name: Macos Install
       block:
