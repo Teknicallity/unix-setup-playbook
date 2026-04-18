@@ -1,7 +1,7 @@
 ---
-nerdfont_urls:
-  - https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip
-  - https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Noto.zip
+# =============================================================================
+# Apps
+# =============================================================================
 
 apps:
   - bat
@@ -31,9 +31,6 @@ gui_apps:
   - obs
   - prismlauncher
 
-linux_only_apps:
-  - fastfetch
-
 brew_only_apps:
   - nano
   - oh-my-posh
@@ -60,19 +57,60 @@ brew_cask_apps:
 #  - logitech-g-hub
 #  - claude
 
+linux_only_apps:
+  - fastfetch
+
 homebrew_taps: []
 
 linux_apps: "{{ linux_only_apps }}"
-
 homebrew_installed_packages: "{{ apps + brew_only_apps }}"
 homebrew_cask_apps: "{{ gui_apps + brew_cask_apps }}"
 homebrew_cask_accept_external_apps: true
 homebrew_upgrade_all_packages: true
 
+# =============================================================================
+# Mac App Store
+# =============================================================================
+
+mas_upgrade_all_apps: false
+mas_installed_apps:
+  - {id: 1444383602, name: "Goodnotes"}
+  - {id: 1544743900, name: "Hush"}
+  - {id: 1342896380, name: "Hex Fiend"}
+  - {id: 425424353, name: "Unarchiver"}
+  - {id: 1640113540, name: "Clone in VS Code"}
+  - {id: 497799835, name: "Xcode"}
+  - {id: 1352778147, name: "Bitwarden"}
+  - {id: 1475387142, name: "Tailscale"}
+  - {id: 1542271266, name: "Silicon Info"}
+  - {id: 1024640650, name: "CotEditor"}
+  - {id: 1607635845, name: "Velja"}
+  - {id: 1440147259, name: "AdGuard for Safari"}
+#  - {id: 1355679052, name: "Dropover"} # one time in app purchase
+  - {id: 1436994560, name: "Portal"}
+#  - {id: 1274495053, name: "Microsoft To Do"}
+
+# =============================================================================
+# Fonts
+# =============================================================================
+
+nerdfont_urls:
+  - https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip
+  - https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Noto.zip
+
+# =============================================================================
+# macOS Defaults
+# =============================================================================
+
 dock_autohide: true
 dock_autohide_delay: 0.05
+
 menu_bar_item_spacing: 8
 menu_bar_item_selection_padding: 4
+
+# =============================================================================
+# Dock Layout
+# =============================================================================
 
 dockutil_install: true
 
@@ -153,25 +191,7 @@ dockitems_persist:
     pos: 20
   - name: iTerm2
     path: "/Applications/iTerm.app/"
-    pos: 20
+    pos: 21
   - name: iPhone Mirroring
     path: "/System/Applications/iPhone Mirroring.app/"
-    pos: 21
-
-mas_upgrade_all_apps: false
-mas_installed_apps:
-  - {id: 1444383602, name: "Goodnotes"}
-  - {id: 1544743900, name: "Hush"}
-  - {id: 1342896380, name: "Hex Fiend"}
-  - {id: 425424353, name: "Unarchiver"}
-  - {id: 1640113540, name: "Clone in VS Code"}
-  - {id: 497799835, name: "Xcode"}
-  - {id: 1352778147, name: "Bitwarden"}
-  - {id: 1475387142, name: "Tailscale"}
-  - {id: 1542271266, name: "Silicon Info"}
-  - {id: 1024640650, name: "CotEditor"}
-  - {id: 1607635845, name: "Velja"}
-  - {id: 1440147259, name: "AdGuard for Safari"}
-#  - {id: 1355679052, name: "Dropover"} # one time in app purchase
-  - {id: 1436994560, name: "Portal"}
-#  - {id: 1274495053, name: "Microsoft To Do"}
+    pos: 22
