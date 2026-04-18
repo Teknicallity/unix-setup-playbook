@@ -9,7 +9,7 @@
       block:
         - name: Find omp.cache files
           find:
-            paths: "{{ ansible_env.HOME }}"
+            paths: "{{ ansible_facts['env']['HOME'] }}"
             patterns: omp.cache*
           register: omp_files
 
@@ -21,12 +21,12 @@
 
         - name: Remove the themes directory
           file:
-            path: "{{ ansible_env.HOME }}/themes"
+            path: "{{ ansible_facts['env']['HOME'] }}/themes"
             state: absent
 
     - name: Save User Home Dir
       set_fact:
-        home: "{{ ansible_env.HOME }}"
+        home: "{{ ansible_facts['env']['HOME'] }}"
     - name: Clone dotfiles repository as bare repository
       git:
         repo: "{{ dotfiles_repo }}"
@@ -50,5 +50,5 @@
     - name: Change user's shell to zsh
       become: true
       user:
-        name: "{{ ansible_user_id }}"
+        name: "{{ ansible_facts['user_id'] }}"
         shell: "{{ zsh_path.stdout }}"
