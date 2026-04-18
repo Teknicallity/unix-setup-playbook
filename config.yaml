@@ -116,6 +116,7 @@ dockutil_install: true
 
 dockitems_remove:
   - Launchpad
+  - Apps
   - Mail
   - Maps
   - FaceTime
@@ -128,9 +129,7 @@ dockitems_remove:
   - 'App Store'
 
 dockitems_persist:
-  - name: Finder
-    path: "/System/Library/CoreServices/Finder.app/"
-    pos: 1
+  # Positions are 1-based. Position 1 is Finder by MacOS default.
   - name: System Settings
     path: "/System/Applications/System Settings.app/"
     pos: 2
