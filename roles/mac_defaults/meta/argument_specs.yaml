@@ -1,0 +1,25 @@
+argument_specs:
+  # roles/mac_defaults/tasks/main.yml entry point
+  main:
+    short_description: Configure macOS system defaults
+    options:
+      dock_autohide:
+        type: bool
+        required: false
+        description:
+          - "Whether to enable Dock autohide."
+      dock_autohide_delay:
+        type: float
+        required: false
+        description:
+          - "Delay in seconds before the Dock appears when autohide is enabled."
+      menu_bar_item_spacing:
+        type: int
+        required: false
+        description:
+          - "Pixel spacing between menu bar items."
+      menu_bar_item_selection_padding:
+        type: int
+        required: false
+        description:
+          - "Pixel padding around selected menu bar items."

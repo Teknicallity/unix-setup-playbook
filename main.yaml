@@ -22,6 +22,11 @@
         - name: Install App Store Apps
           include_role:
             name: geerlingguy.mac.mas
+
+        - name: Apply macOS defaults
+          include_role:
+            name: mac_defaults
+
       when: is_mac
 
     - name: Linux Install

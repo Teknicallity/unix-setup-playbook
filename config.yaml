@@ -68,6 +68,11 @@ homebrew_cask_apps: "{{ gui_apps + brew_cask_apps }}"
 homebrew_cask_accept_external_apps: true
 homebrew_upgrade_all_packages: true
 
+dock_autohide: true
+dock_autohide_delay: 0.05
+menu_bar_item_spacing: 8
+menu_bar_item_selection_padding: 4
+
 mas_upgrade_all_apps: false
 mas_installed_apps:
   - {id: 1444383602, name: "Goodnotes"}

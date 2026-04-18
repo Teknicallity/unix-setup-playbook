@@ -1,0 +1,5 @@
+---
+dock_autohide: true
+dock_autohide_delay: 0.05
+menu_bar_item_spacing: 8
+menu_bar_item_selection_padding: 4

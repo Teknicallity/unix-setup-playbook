@@ -1,0 +1,42 @@
+---
+- name: Configure Dock
+  block:
+    - name: Enable Dock autohide
+      community.general.osx_defaults:
+        domain: com.apple.dock
+        key: autohide
+        type: bool
+        value: "{{ dock_autohide }}"
+        state: present
+      notify: Restart Dock
+
+    - name: Set Dock autohide delay
+      community.general.osx_defaults:
+        domain: com.apple.dock
+        key: autohide-delay
+        type: float
+        value: "{{ dock_autohide_delay }}"
+        state: present
+      notify: Restart Dock
+
+- name: Configure menu bar
+  block:
+    - name: Set menu bar item spacing
+      community.general.osx_defaults:
+        domain: NSGlobalDomain
+        host: currentHost
+        key: NSStatusItemSpacing
+        type: int
+        value: "{{ menu_bar_item_spacing }}"
+        state: present
+      notify: Restart SystemUIServer
+
+    - name: Set menu bar item selection padding
+      community.general.osx_defaults:
+        domain: NSGlobalDomain
+        host: currentHost
+        key: NSStatusItemSelectionPadding
+        type: int
+        value: "{{ menu_bar_item_selection_padding }}"
+        state: present
+      notify: Restart SystemUIServer
