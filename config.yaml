@@ -142,55 +142,58 @@ dockitems_persist:
   - name: Microsoft Teams
     path: "/Applications/Microsoft Teams.app/"
     pos: 5
+  - name: Microsoft Outlook
+    path: "/Applications/Microsoft Outlook.app/"
+    pos: 6
   - name: Microsoft Edge
     path: "/Applications/Microsoft Edge.app/"
-    pos: 6
+    pos: 7
   - name: Firefox
     path: "/Applications/Firefox.app/"
-    pos: 7
+    pos: 8
   - name: Safari
     path: "/Applications/Safari.app/"
-    pos: 8
+    pos: 9
   - name: Discord
     path: "/Applications/Discord.app/"
-    pos: 9
+    pos: 10
   - name: Spotify
     path: "/Applications/Spotify.app/"
-    pos: 10
+    pos: 11
   - name: Notion
     path: "/Applications/Notion.app/"
-    pos: 11
+    pos: 12
   - name: Obsidian
     path: "/Applications/Obsidian.app/"
-    pos: 12
+    pos: 13
   - name: Notes
     path: "/System/Applications/Notes.app/"
-    pos: 13
+    pos: 14
   - name: Microsoft OneNote
     path: "/Applications/Microsoft OneNote.app/"
-    pos: 14
+    pos: 15
   - name: Microsoft Word
     path: "/Applications/Microsoft Word.app/"
-    pos: 15
+    pos: 16
   - name: Microsoft Excel
     path: "/Applications/Microsoft Excel.app/"
-    pos: 16
+    pos: 17
   - name: Microsoft To Do
     path: "/Applications/Microsoft To Do.app/"
-    pos: 17
+    pos: 18
   # JetBrains Toolbox installs to ~/Applications by default — adjust edition name if needed
   - name: PyCharm
     path: "{{ ansible_facts['env']['HOME'] }}/Applications/PyCharm Professional Edition.app/"
-    pos: 18
+    pos: 19
   - name: IntelliJ IDEA
     path: "{{ ansible_facts['env']['HOME'] }}/Applications/IntelliJ IDEA Ultimate.app/"
-    pos: 19
+    pos: 20
   - name: Visual Studio Code
     path: "/Applications/Visual Studio Code.app/"
-    pos: 20
+    pos: 21
   - name: iTerm2
     path: "/Applications/iTerm.app/"
-    pos: 21
+    pos: 22
   - name: iPhone Mirroring
     path: "/System/Applications/iPhone Mirroring.app/"
-    pos: 22
+    pos: 23
