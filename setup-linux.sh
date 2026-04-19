@@ -18,8 +18,9 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-# Expand first-letter shorthand
-case "${PROFILE,,}" in
+# Expand first-letter shorthand (lowercase for case-insensitive matching)
+PROFILE=$(echo "$PROFILE" | tr '[:upper:]' '[:lower:]')
+case "$PROFILE" in
   w*) PROFILE=work ;;
   p*) PROFILE=personal ;;
   b*) PROFILE=both ;;
