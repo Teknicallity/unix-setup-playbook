@@ -74,4 +74,4 @@ export PATH="$PATH:$HOME/.local/bin"
 ansible-galaxy collection install -r requirements.yaml
 
 # Run the playbook
-ansible-playbook -i localhost, main.yaml --ask-become-pass -e profile="$PROFILE"
+ansible-playbook -i hosts.yaml --ask-become-pass main.yaml -e profile="$PROFILE"
