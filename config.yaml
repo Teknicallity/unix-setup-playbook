@@ -50,6 +50,8 @@ brew_cask_apps:
   - 1password
   - linearmouse
   - iterm2
+  - grandperspective
+#  - dockside # one time in app purchase
 #  - microsoft-office
 #  - microsoft-teams
 #  - teamviewer
@@ -87,6 +89,8 @@ mas_installed_apps:
   - {id: 1607635845, name: "Velja"}
   - {id: 1440147259, name: "AdGuard for Safari"}
 #  - {id: 1355679052, name: "Dropover"} # one time in app purchase
+  - {id: 6698876601, name: "Folder Preview"} # paid app
+  - {id: 1522267256, name: "Shareful"}
   - {id: 1436994560, name: "Portal"}
 #  - {id: 1274495053, name: "Microsoft To Do"}
 
