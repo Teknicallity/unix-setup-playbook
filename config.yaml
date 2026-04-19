@@ -1,72 +1,115 @@
 ---
 # =============================================================================
+# Profile
+# =============================================================================
+# Override at runtime: ./setup-mac.sh -p work  or  ansible-playbook ... -e profile=work
+# Valid values: personal, work, both
+
+profile: personal
+
+# =============================================================================
 # Apps
 # =============================================================================
 
-apps:
+apps_common:
   - bat
   - btop
   - fzf
   - git
   - gpg
   - go
-  - sqlite
-  - netscanner
   - node
   - openssl
-  - powershell
-  - ssh-copy-id
+  - sqlite
   - wget
   - zsh
   - zoxide
+  - netscanner
+  - ssh-copy-id
+  - fastfetch
+  - nano
+  - tmux
 
-gui_apps:
+apps_work:
+  - powershell
+
+apps_personal:
+  - obsidian
+  - obs
+
+gui_apps_common:
   - docker
   - firefox
-  - handbrake
-  - discord
-  - obsidian
-  - spotify
-#  - davinciresolve
-  - obs
-  - prismlauncher
 
-brew_only_apps:
-  - nano
+gui_apps_work: []
+
+gui_apps_personal:
+  - discord
+  - handbrake
+  - spotify
+  - prismlauncher
+#  - davinciresolve # does not exist as a cask. App store version is sandboxed. Get from website.
+
+brew_only_common:
   - oh-my-posh
   - openjdk
   - mas
-  - meetingbar
-  - tmux
 
-homebrew_cask_appdir: /Applications
-brew_cask_apps:
-  - microsoft-edge
-  - jetbrains-toolbox
+brew_only_work:
+  - meetingbar
+
+brew_only_personal: []
+
+brew_cask_common:
   - visual-studio-code
   - docker
-  - xykong/tap/flux-markdown
-  - dockdoor
-  - 1password
-  - linearmouse
+  - xykong/tap/flux-markdown # markdown previewer
+  - dockdoor # cmd + tab enhancer
   - iterm2
-  - grandperspective
-#  - dockside # one time in app purchase
-#  - microsoft-office
-#  - microsoft-teams
-#  - teamviewer
-#  - zoom
-#  - logitech-g-hub
-#  - claude
+  - grandperspective # disk usage visualizer
+  - linearmouse 
+  - wallspace # wallpaper 
+  - rectangle # window manager
 
-linux_only_apps:
-  - fastfetch
+brew_cask_work:
+  - microsoft-edge
+  - 1password
+
+brew_cask_personal:
+  - jetbrains-toolbox
+
+linux_only_common: []
+
+linux_only_work: []
+
+linux_only_personal: []
 
 homebrew_taps: []
 
-linux_apps: "{{ linux_only_apps }}"
-homebrew_installed_packages: "{{ apps + brew_only_apps }}"
-homebrew_cask_apps: "{{ gui_apps + brew_cask_apps }}"
+homebrew_cask_appdir: /Applications
+
+# =============================================================================
+# Composed variables (consumed by roles — do not rename)
+# =============================================================================
+
+_work_apps:          "{{ (profile != 'personal') | ternary(apps_work,           []) }}"
+_personal_apps:      "{{ (profile != 'work')     | ternary(apps_personal,       []) }}"
+_work_gui:           "{{ (profile != 'personal') | ternary(gui_apps_work,       []) }}"
+_personal_gui:       "{{ (profile != 'work')     | ternary(gui_apps_personal,   []) }}"
+_work_brew_only:     "{{ (profile != 'personal') | ternary(brew_only_work,      []) }}"
+_personal_brew_only: "{{ (profile != 'work')     | ternary(brew_only_personal,  []) }}"
+_work_cask:          "{{ (profile != 'personal') | ternary(brew_cask_work,      []) }}"
+_personal_cask:      "{{ (profile != 'work')     | ternary(brew_cask_personal,  []) }}"
+_work_linux:         "{{ (profile != 'personal') | ternary(linux_only_work,     []) }}"
+_personal_linux:     "{{ (profile != 'work')     | ternary(linux_only_personal, []) }}"
+_work_mas:           "{{ (profile != 'personal') | ternary(mas_work,            []) }}"
+_personal_mas:       "{{ (profile != 'work')     | ternary(mas_personal,        []) }}"
+
+linux_apps:                   "{{ linux_only_common + _work_linux + _personal_linux }}"
+homebrew_installed_packages:  "{{ apps_common + _work_apps + _personal_apps + brew_only_common + _work_brew_only + _personal_brew_only }}"
+homebrew_cask_apps:           "{{ gui_apps_common + _work_gui + _personal_gui + brew_cask_common + _work_cask + _personal_cask }}"
+mas_installed_apps:           "{{ mas_common + _work_mas + _personal_mas }}"
+
 homebrew_cask_accept_external_apps: true
 homebrew_upgrade_all_packages: true
 
@@ -75,24 +118,29 @@ homebrew_upgrade_all_packages: true
 # =============================================================================
 
 mas_upgrade_all_apps: false
-mas_installed_apps:
-  - {id: 1444383602, name: "Goodnotes"}
-  - {id: 1544743900, name: "Hush"}
-  - {id: 1342896380, name: "Hex Fiend"}
-  - {id: 425424353, name: "Unarchiver"}
+
+mas_common:
+  # - {id: 1542271266, name: "Silicon Info"}
+  - {id: 425424353,  name: "Unarchiver"}
   - {id: 1640113540, name: "Clone in VS Code"}
-  - {id: 497799835, name: "Xcode"}
-  - {id: 1352778147, name: "Bitwarden"}
+  - {id: 497799835,  name: "Xcode"}
   - {id: 1475387142, name: "Tailscale"}
-  - {id: 1542271266, name: "Silicon Info"}
-  - {id: 1024640650, name: "CotEditor"}
-  - {id: 1607635845, name: "Velja"}
-  - {id: 1440147259, name: "AdGuard for Safari"}
-#  - {id: 1355679052, name: "Dropover"} # one time in app purchase
-  - {id: 6698876601, name: "Folder Preview"} # paid app
-  - {id: 1522267256, name: "Shareful"}
-  - {id: 1436994560, name: "Portal"}
-#  - {id: 1274495053, name: "Microsoft To Do"}
+  - {id: 1024640650, name: "CotEditor"} # Notepad++ alternative
+  - {id: 1544743900, name: "Hush"} # safari nag blocker
+  - {id: 6745342698, name: "uBlock Origin Lite"}
+  - {id: 1342896380, name: "Hex Fiend"} # hex editor
+  - {id: 1522267256, name: "Shareful"} # share menu customizer
+  - {id: 1436994560, name: "Portal"}  # wallpaper focus app
+
+mas_work:
+  - {id: 1274495053, name: "Microsoft To Do"}
+
+mas_personal:
+  - {id: 1607635845, name: "Velja"} # paid, already bought # quick switch default browser
+  - {id: 1444383602, name: "Goodnotes"}
+  - {id: 1352778147, name: "Bitwarden"}
+  # - {id: 6698876601, name: "Folder Preview"} # paid
+  # - {id: 1355679052, name: "Dropover"} # one time in-app purchase # temporary file shelf
 
 # =============================================================================
 # Fonts
