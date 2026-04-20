@@ -38,7 +38,6 @@ Run `brew-check-drift.sh` to get a list of Mac Apps on the system which are not 
 
 - curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 - Then :PlugInstall in vim
-- change spacing: defaults -currentHost write -globalDomain NSStatusItemSpacing -int 8
-- change highlight: defaults -currentHost write -globalDomain NSStatusItemSpacing -int 4
 - defaults write com.apple.dock autohide-time-modifier -float 0.5; killall Dock
 - defaults write com.apple.dock autohide-delay -float 0.05; killall Dock
+- defaults write com.apple.dock minimize-to-application -bool true && killall Dock
