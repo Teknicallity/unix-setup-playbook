@@ -130,7 +130,6 @@ mas_common:
   - {id: 6745342698, name: "uBlock Origin Lite"}
   - {id: 1342896380, name: "Hex Fiend"} # hex editor
   - {id: 1522267256, name: "Shareful"} # share menu customizer
-  - {id: 1436994560, name: "Portal"}  # wallpaper focus app
 
 mas_work:
   - {id: 1274495053, name: "Microsoft To Do"}
