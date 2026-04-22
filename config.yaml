@@ -249,3 +249,11 @@ dockitems_persist:
   - name: iPhone Mirroring
     path: "/System/Applications/iPhone Mirroring.app/"
     pos: 23
+  - name: TeamViewer
+    path: "/Applications/TeamViewer.app/"
+    pos: 24
+  - name: 1Password
+    path: "/Applications/1Password.app"
+    pos: 25
+
+
