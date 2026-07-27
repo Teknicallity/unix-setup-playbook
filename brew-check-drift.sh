@@ -13,52 +13,77 @@ trap "rm -f $YAML_FILE" EXIT
 curl -sL "$YAML_URL" -o "$YAML_FILE"
 
 # --- Parse known apps from YAML ---
-# We need: apps, brew_only_apps, gui_apps, brew_cask_apps, mas_installed_apps
-# Using grep/sed since yq may not be installed
+# config.yaml splits each category into _common / _work / _personal lists, so we
+# parse all three per category. Using grep/sed since yq may not be installed.
 
 parse_list() {
-    # Extracts simple "- value" items under a given key, stops at next top-level key
+    # Extracts simple "- value" items under a given key, stops at next top-level key.
+    # Strips inline comments, quotes, tap prefixes and trailing space, then lowercases.
+    # A missing key or "[]" list yields nothing (never aborts under set -e).
     local key="$1" file="$2"
-    sed -n "/^${key}:/,/^[a-z_]*:/p" "$file" \
-        | grep '^\s*-' \
+    sed -n "/^${key}:/,/^[a-zA-Z_]/p" "$file" \
+        | grep '^[[:space:]]*-' \
         | sed 's/^[[:space:]]*-[[:space:]]*//' \
+        | sed 's/[[:space:]]*#.*$//' \
         | tr -d '"' \
-        | tr '[:upper:]' '[:lower:]'
+        | sed 's#.*/##' \
+        | sed 's/[[:space:]]*$//' \
+        | tr '[:upper:]' '[:lower:]' \
+        | grep -v '^$' \
+        || true
 }
 
 parse_mas_ids() {
-    # Extracts MAS app IDs from {id: XXXX, name: "..."} entries
-    sed -n '/^mas_installed_apps:/,/^[a-z_]*:/p' "$1" \
+    # Extracts MAS app IDs from "{id: XXXX, name: ...}" entries under a given key,
+    # ignoring commented-out lines. Empty result never aborts under set -e.
+    local key="$1" file="$2"
+    sed -n "/^${key}:/,/^[a-zA-Z_]/p" "$file" \
+        | grep -v '^[[:space:]]*#' \
         | grep -oE 'id:[[:space:]]*[0-9]+' \
         | awk -F: '{print $2}' \
-        | tr -d ' '
+        | tr -d ' ' \
+        || true
 }
 
 # Build the set of known formulae (lowercased)
 known_formulae=$(
     {
-        parse_list "apps" "$YAML_FILE"
-        parse_list "brew_only_apps" "$YAML_FILE"
+        parse_list "apps_common"        "$YAML_FILE"
+        parse_list "apps_work"          "$YAML_FILE"
+        parse_list "apps_personal"      "$YAML_FILE"
+        parse_list "brew_only_common"   "$YAML_FILE"
+        parse_list "brew_only_work"     "$YAML_FILE"
+        parse_list "brew_only_personal" "$YAML_FILE"
     } | sort -u
 )
 
 # Build the set of known casks (lowercased)
 known_casks=$(
     {
-        parse_list "gui_apps" "$YAML_FILE"
-        parse_list "brew_cask_apps" "$YAML_FILE"
+        parse_list "gui_apps_common"    "$YAML_FILE"
+        parse_list "gui_apps_work"      "$YAML_FILE"
+        parse_list "gui_apps_personal"  "$YAML_FILE"
+        parse_list "brew_cask_common"   "$YAML_FILE"
+        parse_list "brew_cask_work"     "$YAML_FILE"
+        parse_list "brew_cask_personal" "$YAML_FILE"
     } | sort -u
 )
 
 # Build the set of known MAS app IDs
-known_mas_ids=$(parse_mas_ids "$YAML_FILE" | sort -u)
+known_mas_ids=$(
+    {
+        parse_mas_ids "mas_common"   "$YAML_FILE"
+        parse_mas_ids "mas_work"     "$YAML_FILE"
+        parse_mas_ids "mas_personal" "$YAML_FILE"
+    } | sort -u
+)
 
 # --- Get installed apps ---
-installed_formulae=$(brew list --formula -1 2>/dev/null | tr '[:upper:]' '[:lower:]' | sort -u)
-installed_casks=$(brew list --cask -1 2>/dev/null | tr '[:upper:]' '[:lower:]' | sort -u)
+installed_formulae=$(brew list --formula -1 2>/dev/null | tr '[:upper:]' '[:lower:]' | sort -u || true)
+installed_casks=$(brew list --cask -1 2>/dev/null | tr '[:upper:]' '[:lower:]' | sort -u || true)
 
 # mas list outputs "APPID  AppName (version)"
-installed_mas_ids=$(mas list 2>/dev/null | awk '{print $1}' | sort -u)
+installed_mas_ids=$(mas list 2>/dev/null | awk '{print $1}' | sort -u || true)
 
 # --- Diff: installed but NOT in your YAML ---
 
@@ -77,14 +102,16 @@ echo ""
 echo "========================================="
 echo " Mac App Store apps NOT in your YAML"
 echo "========================================="
-unknown_mas=$(comm -23 <(echo "$installed_mas_ids") <(echo "$known_mas_ids"))
+unknown_mas=$(comm -23 <(echo "$installed_mas_ids") <(echo "$known_mas_ids") || true)
 if [[ -n "$unknown_mas" ]]; then
     # Resolve IDs back to names for readability
-    mas_full=$(mas list 2>/dev/null)
+    mas_full=$(mas list 2>/dev/null || true)
     while IFS= read -r app_id; do
-        name=$(echo "$mas_full" | grep "^${app_id} " | sed "s/^${app_id} //" | sed 's/ (.*)//')
+        name=$(echo "$mas_full" | grep "^${app_id} " | sed "s/^${app_id} //" | sed 's/ (.*)//' || true)
         echo "$app_id  $name"
     done <<< "$unknown_mas"
 else
     echo "(none)"
 fi
+
+exit 0
