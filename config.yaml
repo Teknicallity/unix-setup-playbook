@@ -246,14 +246,17 @@ dockitems_persist:
   - name: iTerm2
     path: "/Applications/iTerm.app/"
     pos: 22
+  - name: Claude
+    path: "/Applications/Claude.app/"
+    pos: 23
   - name: iPhone Mirroring
     path: "/System/Applications/iPhone Mirroring.app/"
-    pos: 23
+    pos: 24
   - name: TeamViewer
     path: "/Applications/TeamViewer.app/"
-    pos: 24
+    pos: 25
   - name: 1Password
     path: "/Applications/1Password.app"
-    pos: 25
+    pos: 26
 
 
