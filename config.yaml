@@ -29,6 +29,7 @@ apps_common:
   - fastfetch
   - nano
   - tmux
+  - smartmontools
 
 apps_work:
   - powershell
